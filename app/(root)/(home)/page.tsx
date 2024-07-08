@@ -5,12 +5,12 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <main >
-      <section className='flex gap-0 items-center'>
-       <div className='flex px-24 gap-5 flex-col w-2/3'>
+    <main  className='flex flex-col'>
+      <section className='flex flex-col-reverse lg:flex-row lg:items-center mt-5 lg:px-20 xl:px-24 justify-center gap-5 xl:gap-0  '>
+       <div className='flex justify-center gap-4  px-8 lg:p-0 flex-col lg:w-1/2'>
          <div className='flex gap-5  flex-col'>
-          <h1 className='text-5xl font-bold'>
-            Experience <span className=' text-green-700' > Language
+          <h1 className='text-2xl lg:text-4xl lg:pr-8 xl:text-5xl xl:leading-[3.5rem] font-bold xl:pr-6'>
+            Experience Immersive <span className=' text-green-700' > Language
                Learning</span>  through Live Meetings
           </h1>
           <p className='font-[400] text-sm'>Join Interactive Meetings led by Native Speakers Anytime, Anywhere</p>
@@ -31,14 +31,13 @@ const Home = () => {
           
         </div>
        </div>
-       <div className='grid w-1/2 gap-4 grid-cols-5 mt-5 -ml-40'>
-      
-        {/* <Image src="/image/heroimageone.jpeg" alt='heroimage' width={350} height={150} className=' rounded-md w-60 col-span-4 col-start-2 border border-black' />
-        <Image src="/image/heroimagetwo.jpeg" alt='heroimage' width={250} height={150} className=' rounded-md col-span-2 h-60 border border-black '  />
-        <Image src="/image/heroimagethree.jpeg" alt='heroimage' width={250} height={150} className=' rounded-md col-span-2 border border-black  ' /> */}
+       <div className='lg:grid hidden lg:w-1/2 gap-4 grid-cols-4'>
+       <div className='border rounded-md w-full h-56 border-black col-span-3 col-start-2 bg-[url("/image/heroimageone.jpeg")] bg-cover bg-center'></div>
+       <div className='border rounded-md w-full h-48 border-black col-span-2 bg-[url("/image/heroimagetwo.jpeg")] bg-cover bg-center'></div>
+       <div className='border rounded-md w-full h-32 border-black col-span-2 bg-[url("/image/heroimagethree.jpeg")] bg-cover bg-center'></div>
        </div>
       </section>
-      <section></section>
+     
     </main>
   )
 }
