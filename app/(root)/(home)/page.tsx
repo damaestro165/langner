@@ -31,7 +31,7 @@ const Home = () => {
           
         </div>
        </div>
-       <div className='lg:grid hidden lg:w-1/2 gap-4 grid-cols-4'>
+       <div className='lg:grid hidden lg:w-1/2 gap-4 grid-cols-4 xl:mr-2'>
        <div className='border rounded-md w-full h-56 border-black col-span-3 col-start-2 bg-[url("/image/heroimageone.jpeg")] bg-cover bg-center'></div>
        <div className='border rounded-md w-full h-48 border-black col-span-2 bg-[url("/image/heroimagetwo.jpeg")] bg-cover bg-center'></div>
        <div className='border rounded-md w-full h-32 border-black col-span-2 bg-[url("/image/heroimagethree.jpeg")] bg-cover bg-center'></div>
