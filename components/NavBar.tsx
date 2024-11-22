@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
-
+import {RegisterLink, LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
 
 
 const NavBar = () => {
@@ -27,8 +27,11 @@ const NavBar = () => {
           <Button variant='link'><Link href='/'>Features</Link></Button>   
         </div>
          <div className=' flex justify-center gap-4 w-2/5'>
-            <Button className=' bg-green-700 w-36'>Get Started</Button>
-            <Button variant='outline' className=' border border-green-700 w-36'>Log In</Button>
+          <RegisterLink><Button className=' bg-green-700 w-36'>Get Started</Button></RegisterLink>
+         
+          <LoginLink><Button variant='outline' className=' border border-green-700 w-36'>Log In</Button></LoginLink>
+            
+           
         </div>
     </nav>
     <nav className='flex p-4 justify-between  lg:hidden '>
@@ -38,10 +41,10 @@ const NavBar = () => {
      <div>
        <Sheet>
           <SheetTrigger> 
-            <Button variant="outline" size="icon">
+            {/* <Button variant="outline" size="icon">
               < HamburgerMenuIcon className="h-4 w-4" />
-            </Button>
-    </SheetTrigger>
+            </Button> */}
+          </SheetTrigger>
           <SheetContent>
            <div className='w-1/2 text-xl font-bold' >Langner</div>
           </SheetContent>

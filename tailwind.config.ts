@@ -2,12 +2,12 @@ import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+ content: [
+    './app/**/*.{js,jsx,ts,tsx}', // Your main app directory
+    './components/**/*.{js,jsx,ts,tsx}', // Custom components folder
+    './src/**/*.{js,jsx,ts,tsx}', // If you have components in src
+    './node_modules/@shadcn/**/*.{js,jsx,ts,tsx}', // ShadCN components (if directly installed here)
+  ],
   prefix: "",
   theme: {
     container: {
@@ -58,6 +58,7 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+     
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
