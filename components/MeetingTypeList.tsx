@@ -3,12 +3,55 @@ import React, { useState } from 'react'
 
 import MeetingCard from './MeetingCard'
 import MeetingModal from './MeetingModal'
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
+import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk'
+import { useRouter } from 'next/navigation'
 
 const MeetingTypeList = () => {
-  const [meetingState, setMeetingState] = useState<'isScheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined>()
+  const [meetingState, setMeetingState] = useState<'isScheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined>();
 
-  const createMeeting = () => {
+  const [values, setValues] = useState({
+    dateTime: new Date(),
+    description:"",
+    link:""
+  })
+    const [callDetails, setCallDetails] = useState<Call>()
 
+  const {user} = useKindeBrowserClient();
+  const client = useStreamVideoClient();
+  const router = useRouter()
+
+  const createMeeting = async () => {
+    if(!client || !user) return;
+
+    try {
+      const id = crypto.randomUUID();
+      const call = client.call("default", id);
+
+      if(!call) throw new Error('failed to create call')
+
+      const startsAt = values.dateTime.toISOString() || new Date(Date.now()).toISOString();
+
+      const description = values.description || 'instant meeting';
+      
+
+      await call.getOrCreate({
+        data: {
+          starts_at: startsAt,
+          custom:{
+            description
+          }
+        },
+      });
+
+      setCallDetails(call);
+
+      if(!values.description){
+        router.push(`/meeting/${call.id}`);
+      }
+    } catch(error){
+      console.log(error);
+    }
   } 
 
   return (
