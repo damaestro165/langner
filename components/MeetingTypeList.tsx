@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-
+import { useToast } from "@/hooks/use-toast"
 import MeetingCard from './MeetingCard'
 import MeetingModal from './MeetingModal'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
@@ -15,8 +15,9 @@ const MeetingTypeList = () => {
     description:"",
     link:""
   })
-    const [callDetails, setCallDetails] = useState<Call>()
+  const [callDetails, setCallDetails] = useState<Call>()
 
+  const { toast } = useToast()
   const {user} = useKindeBrowserClient();
   const client = useStreamVideoClient();
   const router = useRouter()
@@ -25,6 +26,12 @@ const MeetingTypeList = () => {
     if(!client || !user) return;
 
     try {
+
+      if (!values.dateTime){
+        toast({ title: "Please Select a date and a time"})
+        return;
+      }
+
       const id = crypto.randomUUID();
       const call = client.call("default", id);
 
@@ -49,8 +56,11 @@ const MeetingTypeList = () => {
       if(!values.description){
         router.push(`/meeting/${call.id}`);
       }
+
+      toast({ title: "Meeting Created",})
     } catch(error){
       console.log(error);
+      toast({ title: "Failed to Create Meeting",})
     }
   } 
 
