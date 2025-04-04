@@ -35,7 +35,7 @@ const MeetingSetup = ({setIsSetupComplete}: {setIsSetupComplete:(value:boolean) 
           />
           Join with mic and camera off
         </label>
-        <DeviceSettings />
+        <DeviceSettings/>
         <Button className='rounded-md bg-green-500 px-4 py-2.5' onClick={()=> {
           call?.join();
           setIsSetupComplete(true);
