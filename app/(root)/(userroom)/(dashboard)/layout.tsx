@@ -5,7 +5,7 @@ import StreamVideoProvider from '@/providers/StreamClientProvider'
 
 const RootLayout = ({children} : {children : ReactNode}) => {
   return (
-       <StreamVideoProvider>
+       
           <main className='flex w-screen h-full'>
             <DashboardSideBar/>
             <section className='flex flex-col w-full h-screen'>
@@ -17,7 +17,6 @@ const RootLayout = ({children} : {children : ReactNode}) => {
               </div>
             </section>
           </main>
-      </StreamVideoProvider>
    
   )
 }

@@ -3,9 +3,6 @@ import UpcomingMeetingCard from '@/components/UpcomingMeetingCard';
 import MeetingTypeList from '@/components/MeetingTypeList';
 
 
-
-
-
 const DashboardHome = () => {
   const now = new Date();
 
