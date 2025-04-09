@@ -1,13 +1,20 @@
 import * as Icons from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 
-const Icon = ({ name, color, size }:{name:string, color?:string, size?:number}) => {
-  const LucideIcon = Icons[name];
+type IconProps = {
+  name: keyof typeof Icons;
+  color?: string;
+  size?: number;
+};
 
-  if (!LucideIcon) {
+const Icon = ({ name, color, size }: IconProps) => {
+  const LucideIconComponent = Icons[name] as LucideIcon | undefined;
+
+  if (!LucideIconComponent) {
     return null;
   }
 
-  return <LucideIcon color={color} size={size} />;
+  return <LucideIconComponent color={color} size={size} />;
 };
 
 export default Icon;
