@@ -8,6 +8,7 @@ import Icon from "./DynamicIcon"
 
 
 const DashboardSideBar = () => {
+
     const pathname = usePathname()
   return (
     <section className=" fixed z-50 bg-white flex h-screen w-[4.5%] flex-col items-center justify-between max-sm:hidden border-r-[1px]">

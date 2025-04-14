@@ -1,4 +1,5 @@
-import * as Icons from 'lucide-react';
+// Icon.tsx
+import * as Icons from 'lucide-react'; // Use namespace import
 import { LucideIcon } from 'lucide-react';
 
 type IconProps = {
