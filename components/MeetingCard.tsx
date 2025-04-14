@@ -3,10 +3,11 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image'
 import React from 'react'
 import Icon from './DynamicIcon';
+import * as Icons from 'lucide-react'; //
 
 interface HomeCardProps {
     className: string,
-    icon: string,
+    icon: keyof typeof Icons,
     title: string,
     description: string,
     handleClick: () => void;
