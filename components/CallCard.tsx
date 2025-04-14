@@ -41,7 +41,7 @@ const CallCard = ({
   };
 
   return (
-    <section className="flex min-h-52 w-full flex-col justify-between rounded-xl bg-dark-1 px-5 py-8 xl:max-w-xl bg-slate-100">
+    <section className="flex min-h-52 w-full flex-col justify-between rounded-xl px-5 py-8 xl:max-w-md bg-[#506674ff] text-white ">
       <article className="flex flex-col gap-5">
         <Image src={icon} alt="meeting-image" width={28} height={28} />
         <div className="flex justify-between">
