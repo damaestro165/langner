@@ -26,16 +26,16 @@ const DashboardHome = () => {
         </div>
         </div>
        </div>
-       <div className=' flex flex-col gap-2 lg:gap-4 p-2 '>
+     </div>
+    <div className='lg:bg-gray-100 lg:w-1/2 h-fit rounded-2xl '>
+    <MeetingTypeList/>
+    </div>
+    <div className=' flex flex-col gap-2 lg:gap-4 p-2 '>
         <div className='flex justify-between  text-green-950'>
           <h1 className='font-bold'> Today`s Upcoming Meetings </h1>
         </div>
         <CallList type='upcoming'/>
        </div>
-     </div>
-    <div className='lg:bg-gray-100 lg:w-1/2 h-fit rounded-2xl '>
-    <MeetingTypeList/>
-    </div>
       
     </section>
   )
