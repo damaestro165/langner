@@ -41,12 +41,12 @@ const CallCard = ({
   };
 
   return (
-    <section className="flex min-h-52 w-full flex-col justify-between rounded-xl px-5 py-8 xl:max-w-md bg-[#506674ff] text-white ">
+    <section className="flex min-h-52 w-full flex-col justify-between rounded-xl p-2 xl:max-w-1/2 bg-[#506674ff] text-white ">
       <article className="flex flex-col gap-5">
         <Image src={icon} alt="meeting-image" width={28} height={28} />
         <div className="flex justify-between">
           <div className="flex flex-col gap-2 truncate">
-            <h4 className="text-2xl font-bold truncate">{title}</h4>
+            <h4 className="text-xl font-bold truncate">{title}</h4>
             <p className="text-base font-normal">{meetingDate}</p>
           </div>
         </div>
