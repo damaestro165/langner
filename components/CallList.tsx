@@ -75,7 +75,7 @@ const CallList = ({type}: {type: "ended" | "upcoming" | "recordings"}) => {
     if(isLoading) return <h1 className='text-center text-lg font-semibold text-gray-500'>Loading...</h1>
 
   return ( 
-    <div className='grid grid-cols-1 gap-5 xl:grid-cols-2'>
+    <div className='grid grid-cols-1 gap-5 xl:grid-cols-2 bg-[#506674ff] text-white'>
         { calls && calls.length > 0 ? 
                     calls.map((meeting: Call | CallRecording) =>(
                     <CallCard
