@@ -27,10 +27,10 @@ const DashboardNavBar = () => {
     <>
     <nav className='fixed hidden md:flex justify-end z-5 w-full px-6 py-2 lg:px-5 bg-white h-fit border-b-[1px] border-b-gray-200  '>
         <div className='flex gap-2 items-center justify-center'>
-        <p className='font-semibold text-sm'>{user.given_name} {user.family_name}</p>
+        <p className='font-semibold text-sm'>{user?.given_name} {user?.family_name}</p>
         <Avatar>
-              <AvatarImage src={user.picture} />
-              <AvatarFallback>{user.given_name.charAt(0)}{user.family_name.charAt()}</AvatarFallback>
+              <AvatarImage src={user?.picture} />
+              <AvatarFallback>{user?.given_name.charAt(0)}{user?.family_name.charAt()}</AvatarFallback>
         </Avatar>
         </div>
     </nav>
