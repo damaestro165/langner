@@ -26,7 +26,7 @@ const MeetingSetup = ({setIsSetupComplete}: {setIsSetupComplete:(value:boolean) 
     <div className='flex h-screen w-full lg:p-10  flex-col items-center justify-center gap-3 '>
       <h1 className='text-2xl font-bold'>Setup</h1>
      <div className='lg:w-[35rem]'> <VideoPreview/></div>
-      <div className='flex h-16 items-center justify-center flex-col gap-3'>
+      <div className='flex items-center mt-2 justify-center gap-3'>
         <label className='flex items-center justify-center gap-2 font-medium'>
           <input 
             type='checkbox'
@@ -36,13 +36,14 @@ const MeetingSetup = ({setIsSetupComplete}: {setIsSetupComplete:(value:boolean) 
           Join with mic and camera off
         </label>
         <DeviceSettings/>
-        <Button className='rounded-md bg-green-500 px-4 py-2.5' onClick={()=> {
+        
+      </div>
+      <Button className='rounded-md bg-green-600 px-4 py-2.5' onClick={()=> {
           call?.join();
           setIsSetupComplete(true);
         } }>
           Join Meeting
         </Button>
-      </div>
     </div>
 
     
