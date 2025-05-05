@@ -14,6 +14,9 @@ import { cn } from '@/lib/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import EndCallButton from './EndCallButton'
 import Loader from './Loader'
+import TranscriptPanel from './TranscriptPanel'
+import SharedMaterials from './SharedMaterials'
+import CalendarIntegration from './CalendarIntegration'
 
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
@@ -39,17 +42,22 @@ const MeetingRoom = () => {
           
       }
   }
-
+ 
   return (
     <section className='relative h-screen w-full overflow-hidden pt-4 text-white'>
       <div className='relative flex size-full items-center justify-center '>
-        <div className='flex size-full max-w-md items-center'>
+        <div className='flex size-full max-w-xl items-center'>
           <CallLayout/>
         </div>
         <div className={cn('h-[calc(100vh-86px)] hidden ml-2', {'show-block': showParticipants})}>
             <CallParticipantsList onClose= {() => setShowParticipants(false)}/>
         </div>
       </div>
+      
+      <TranscriptPanel />
+      <SharedMaterials />
+      <CalendarIntegration />
+      
       <div className='fixed bottom-0 flex w-full mt-5 items-center justify-center gap-5'>
         <CallControls onLeave={() => router.push(`/dashboard`)} />
         <DropdownMenu>
