@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { useCall } from '@stream-io/video-react-sdk';
+import { useCallStateHooks } from '@stream-io/video-react-sdk';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MessageSquare, Save, X } from 'lucide-react';
@@ -15,8 +15,8 @@ type TranscriptEntry = {
 };
 
 const TranscriptPanel = () => {
-  const call = useCall();
-  const participants = call?.state?.participants || [];
+  const { useParticipants } = useCallStateHooks();
+  const participants = useParticipants();
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [showTranscript, setShowTranscript] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -29,9 +29,8 @@ const TranscriptPanel = () => {
     
     // Mock transcript generation for demo purposes
     const transcriptInterval = setInterval(() => {
-      if (participants.size > 0) {
-        const participantArray = Array.from(participants.values());
-        const randomParticipant = participantArray[Math.floor(Math.random() * participantArray.length)];
+      if (participants.length > 0) {
+        const randomParticipant = participants[Math.floor(Math.random() * participants.length)];
         setTranscript(prev => [...prev, {
           id: Date.now().toString(),
           speakerName: randomParticipant.name || randomParticipant.userId || 'Unknown Speaker',

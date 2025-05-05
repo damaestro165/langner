@@ -69,7 +69,7 @@ const CalendarIntegration = () => {
         description: newMeeting.description,
         startTime: newMeeting.startTime!,
         endTime: newMeeting.endTime!,
-        participants: newMeeting.participants!,
+        participants: newMeeting.participants || [],
       },
     ]);
     
@@ -221,7 +221,7 @@ const CalendarIntegration = () => {
             <div>
               <label className="text-sm font-medium">Description</label>
               <Textarea 
-                value={newMeeting.description}
+                value={newMeeting.description || ''}
                 onChange={(e) => setNewMeeting(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="What will you do in this meeting?"
                 rows={3}
@@ -257,7 +257,7 @@ const CalendarIntegration = () => {
             <div>
               <label className="text-sm font-medium">Participants (comma-separated emails)</label>
               <Input 
-                value={newMeeting.participants?.join(', ')}
+                value={newMeeting.participants?.join(', ') || ''}
                 onChange={(e) => setNewMeeting(prev => ({ 
                   ...prev, 
                   participants: e.target.value.split(',').map(email => email.trim()).filter(Boolean)

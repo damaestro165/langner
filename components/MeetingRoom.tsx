@@ -50,7 +50,7 @@ const MeetingRoom = () => {
         <div className='flex size-full max-w-xl items-center'>
           <CallLayout/>
         </div>
-        <div className={cn('h-[calc(100vh-86px)] hidden ml-2', {'show-block': showParticipants})}>
+        <div className={cn('h-[calc(100vh-86px)] ml-2', { 'hidden': !showParticipants })}>
             <CallParticipantsList onClose= {() => setShowParticipants(false)}/>
         </div>
       </div>
@@ -85,7 +85,7 @@ const MeetingRoom = () => {
         </DropdownMenu>
         <CallStatsButton/>
         <button onClick={() => setShowParticipants((prev) => !prev)}>
-           <div className="cursor-pointer rounded-2xl bg-[#4c535b]">
+           <div className="cursor-pointer rounded-2xl bg-[#4c535b] p-2">
             <Users size={20} className="text-white" />
            </div>
         </button>
