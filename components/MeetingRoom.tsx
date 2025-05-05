@@ -1,4 +1,4 @@
-import { CallControls, CallingState, CallParticipantsList, CallStatsButton, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from '@stream-io/video-react-sdk'
+import { CallControls, CallingState, CallParticipantsList, CallStatsButton, PaginatedGridLayout, SpeakerLayout, useCall } from '@stream-io/video-react-sdk'
 import React, { useState } from 'react'
 
 import {
@@ -24,11 +24,12 @@ type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 const MeetingRoom = () => {
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get('personal')
-   const router = useRouter();
+  const router = useRouter();
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left')
   const [showParticipants, setShowParticipants] = useState(false)
-  const {useCallCallingState} = useCallStateHooks()
-  const callingState = useCallCallingState();
+  
+  const call = useCall();
+  const callingState = call?.state?.callingState;
 
   if (callingState !== CallingState.JOINED) return <Loader/>
   const CallLayout = () =>{

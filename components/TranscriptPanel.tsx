@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { useCallStateHooks } from '@stream-io/video-react-sdk';
+import { useCall } from '@stream-io/video-react-sdk';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
 import { MessageSquare, Save, X } from 'lucide-react';
 
@@ -16,8 +15,8 @@ type TranscriptEntry = {
 };
 
 const TranscriptPanel = () => {
-  const { useCallParticipants } = useCallStateHooks();
-  const participants = useCallParticipants();
+  const call = useCall();
+  const participants = call?.state?.participants || [];
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [showTranscript, setShowTranscript] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -30,11 +29,12 @@ const TranscriptPanel = () => {
     
     // Mock transcript generation for demo purposes
     const transcriptInterval = setInterval(() => {
-      if (participants.length > 0) {
-        const randomParticipant = participants[Math.floor(Math.random() * participants.length)];
+      if (participants.size > 0) {
+        const participantArray = Array.from(participants.values());
+        const randomParticipant = participantArray[Math.floor(Math.random() * participantArray.length)];
         setTranscript(prev => [...prev, {
           id: Date.now().toString(),
-          speakerName: randomParticipant.name || 'Unknown Speaker',
+          speakerName: randomParticipant.name || randomParticipant.userId || 'Unknown Speaker',
           text: `This is a simulated transcript entry. In production, this would be real speech converted to text.`,
           timestamp: Date.now(),
           edited: false,
@@ -95,7 +95,7 @@ const TranscriptPanel = () => {
         </Button>
       </div>
       
-      <ScrollArea className="flex-grow p-3" ref={scrollRef}>
+      <div className="flex-grow p-3 overflow-y-auto" ref={scrollRef}>
         {transcript.length === 0 ? (
           <p className="text-gray-500 text-center mt-4">Transcript will appear here as people speak...</p>
         ) : (
@@ -141,7 +141,7 @@ const TranscriptPanel = () => {
             </div>
           ))
         )}
-      </ScrollArea>
+      </div>
       
       <div className="p-3 border-t flex justify-end">
         <Button size="sm" className="bg-green-700">
