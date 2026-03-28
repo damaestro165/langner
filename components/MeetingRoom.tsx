@@ -56,7 +56,7 @@ const MeetingRoom = () => {
     if (callingState === CallingState.JOINED) {
       setIsJoining(false);
       console.log('Call joined successfully');
-    } else if (callingState === CallingState.CONNECTING) {
+    } else if (callingState === CallingState.JOINING) {
       setLoadingMessage('Connecting to meeting...');
       console.log('Call connecting...');
     } else if (callingState === CallingState.RECONNECTING) {
