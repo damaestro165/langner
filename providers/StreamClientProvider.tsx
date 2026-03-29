@@ -55,7 +55,11 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
                 });
 
                 // Test the connection
-                await client.connectUser();
+                await client.connectUser({
+                    id: user.id,
+                    name: user?.given_name || user.id || 'Anonymous',
+                    image: user?.picture || '',
+                }, token);
                 console.log('Stream client connected successfully');
                 
                 setVideoClient(client);

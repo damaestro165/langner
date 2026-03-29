@@ -29,8 +29,8 @@ const DashboardNavBar = () => {
         <div className='flex gap-2 items-center justify-center'>
         <p className='font-semibold text-sm'>{user?.given_name} {user?.family_name}</p>
         <Avatar>
-              <AvatarImage src={user?.picture} />
-              <AvatarFallback>{user?.given_name.charAt(0)}{user?.family_name.charAt()}</AvatarFallback>
+              <AvatarImage src={user?.picture || undefined} />
+              <AvatarFallback>{user?.given_name?.charAt(0) || user?.family_name?.charAt(0) || "U"}</AvatarFallback>
         </Avatar>
         </div>
     </nav>
