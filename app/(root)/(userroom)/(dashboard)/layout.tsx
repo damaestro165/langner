@@ -8,10 +8,10 @@ const RootLayout = ({children} : {children : ReactNode}) => {
        
           <main className='flex w-screen h-full'>
             <DashboardSideBar/>
-            <section className='flex flex-col w-full h-screen'>
+            <section className='flex flex-col w-full min-h-screen bg-background'>
               <DashboardNavBar/>
-              <div className='flex pt-5 flex-1 md:ml-14 flex-col px-3 md:pt-[4rem] h-full lg:px-8'>
-              <div className='h-full w-full md:p-8 lg:p-0'>
+              <div className='flex flex-col flex-1 md:ml-64 pt-20 px-4 lg:px-12'>
+              <div className='h-full w-full py-8'>
               {children}
               </div>
               </div>

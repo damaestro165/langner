@@ -75,7 +75,7 @@ const CallList = ({type}: {type: "ended" | "upcoming" | "recordings"}) => {
     if(isLoading) return <h1 className='text-center text-lg font-semibold text-gray-500'>Loading...</h1>
 
   return ( 
-    <div className='grid grid-cols-1 gap-5 xl:grid-cols-2  '>
+    <div className='grid grid-cols-1 gap-8 xl:grid-cols-3'>
         { calls && calls.length > 0 ? 
                     calls.map((meeting: Call | CallRecording) =>(
                     <CallCard
@@ -94,7 +94,8 @@ const CallList = ({type}: {type: "ended" | "upcoming" | "recordings"}) => {
                     }
                     date={
                     (meeting as Call).state?.startsAt?.toLocaleString() ||
-                    (meeting as CallRecording).start_time
+                    (meeting as CallRecording).start_time?.toLocaleString() ||
+                    new Date().toLocaleString()
                     }
                     isPreviousMeeting={type === "ended"}
                     link={
@@ -110,10 +111,22 @@ const CallList = ({type}: {type: "ended" | "upcoming" | "recordings"}) => {
                         : () => router.push(`/meeting/${(meeting as Call).id}`)
                     }
                 />
-                    )): <h1 className='text-center text-lg font-semibold text-gray-500'>
-                        {noCallsMessage}
-                    </h1>
+                    )): null
         }
+        
+        {/* Start New Session Placeholder Card */}
+        <div 
+          onClick={() => router.push('/dashboard')}
+          className="flex flex-col items-center justify-center gap-4 rounded-[32px] p-8 bg-emerald-50/50 border-2 border-dashed border-emerald-200 cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-300 group min-h-[300px]"
+        >
+          <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 transition-transform group-hover:scale-110">
+            <Plus size={32} />
+          </div>
+          <div className="text-center">
+            <h4 className="text-lg font-bold text-gray-900">Start New Session</h4>
+            <p className="text-sm text-gray-500">Connect with a tutor instantly</p>
+          </div>
+        </div>
     </div>
   )
 }

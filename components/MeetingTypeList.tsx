@@ -72,34 +72,34 @@ const MeetingTypeList = () => {
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`
 
   return (
-  <div className='grid grid-cols-1 md:grid-cols-2 justify-items-center gap-3 lg:p-3 content-center '>
+  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
       <MeetingCard
-        icon="Plus"
-        title = "New Meeting"
-        description="Start an instant meeting"
-        handleClick ={()=>setMeetingState('isInstantMeeting')}
-        className="bg-[#312924ff]"
-    />
-    <MeetingCard
-        icon="CalendarFold"
-        title = "Schedule Meeting"
-        description="Plan your meeting"
-        handleClick ={()=>setMeetingState('isScheduleMeeting')} 
-        className="bg-[#506674ff]"
-    />
-    <MeetingCard
         icon="Video"
-        title = "View Recordings"
-        description="Check your recordings"
-        handleClick ={()=>router.push('/recordings')}
-        className="bg-[#857E7Cff]"
+        title = "New Meeting"
+        description="Instantly start a new collaborative learning session."
+        handleClick ={()=>setMeetingState('isInstantMeeting')}
+        className="bg-emerald-600 text-white"
     />
     <MeetingCard
-        icon="SquareMousePointer"
+        icon="Plus"
         title = "Join Meeting"
-        description="Via invitation "
-        handleClick ={()=>setMeetingState('isJoiningMeeting')}
-        className="bg-[#81B7D4ff]"
+        description="Enter an invite code to jump into an existing classroom."
+        handleClick ={()=>setMeetingState('isJoiningMeeting')} 
+        className="bg-secondary text-emerald-600 border-none"
+    />
+    <MeetingCard
+        icon="Calendar"
+        title = "Schedule"
+        description="Plan your future learning sessions and set reminders."
+        handleClick ={()=>setMeetingState('isScheduleMeeting')}
+        className="bg-secondary text-emerald-600 border-none"
+    />
+    <MeetingCard
+        icon="PlayCircle"
+        title = "Recordings"
+        description="Review past lessons and access shared study materials."
+        handleClick ={()=>router.push('/recordings')}
+        className="bg-orange-50 text-orange-600 border-none"
     />
     <MeetingModal
         isOpen={meetingState ==='isJoiningMeeting'}
