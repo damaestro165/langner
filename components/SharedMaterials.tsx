@@ -65,7 +65,7 @@ const SharedMaterials = () => {
     <>
       <Button 
         onClick={() => setShowSharing(true)}
-        className="fixed right-4 bottom-32 rounded-full p-3 bg-blue-600 text-white"
+        className="fixed right-4 bottom-40 rounded-full p-3 bg-blue-600 text-white z-[100]"
         title="Share Materials"
       >
         <FileText size={20} />

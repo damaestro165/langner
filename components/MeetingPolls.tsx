@@ -158,7 +158,7 @@ const MeetingPolls = () => {
     return (
       <Button 
         onClick={() => setIsOpen(true)}
-        className="fixed right-[140px] bottom-20 rounded-full p-3 bg-blue-700 hover:bg-blue-600 text-white shadow-md transition-colors z-40"
+        className="fixed right-[140px] bottom-28 rounded-full p-3 bg-blue-700 hover:bg-blue-600 text-white shadow-md transition-colors z-[100]"
         title="Open Polls"
       >
         <BarChart3 size={20} />
