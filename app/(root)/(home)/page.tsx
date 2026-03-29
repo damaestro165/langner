@@ -9,15 +9,15 @@ const Home = () => {
   return (
     <main className='flex flex-col w-full bg-white'>
       {/* Hero Section */}
-      <section className='max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center pt-12 lg:pt-24 px-8 gap-20'>
-        <div className='flex flex-col gap-10 lg:w-1/2'>
-          <div className='flex flex-col gap-6'>
+      <section className='max-w-7xl mx-auto w-full flex flex-col items-center pt-12 lg:pt-24 px-8 gap-16 text-center'>
+        <div className='flex flex-col items-center gap-10 w-full max-w-4xl'>
+          <div className='flex flex-col gap-6 items-center'>
             <h1 className='text-5xl lg:text-7xl font-extrabold text-gray-900 leading-[1.1] tracking-tight'>
               Experience Immersive <br/>
               <span className='text-emerald-500 italic'>Language Learning</span> <br/>
               through Live Meetings.
             </h1>
-            <p className='text-xl text-gray-500 font-medium max-w-lg leading-relaxed'>
+            <p className='text-xl text-gray-500 font-medium max-w-2xl leading-relaxed'>
               Join Interactive Meetings led by Native Speakers Anytime, Anywhere. Break barriers and speak with confidence from day one.
             </p>
           </div>
@@ -35,7 +35,7 @@ const Home = () => {
             </LoginLink>
           </div>
 
-          <div className='flex gap-16 pt-4'>
+          <div className='flex gap-16 pt-4 justify-center'>
             <div className="flex flex-col gap-1">
               <h2 className='text-3xl font-black text-gray-900'>20K+</h2>
               <p className='text-sm font-bold uppercase tracking-widest text-gray-400'>Active Users</p>
@@ -48,7 +48,7 @@ const Home = () => {
         </div>
 
         {/* Hero Visual Composition */}
-        <div className='lg:w-1/2 relative'>
+        <div className='w-full max-w-5xl relative mt-10'>
            <div className="relative z-10 rounded-[48px] overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-700">
               <Image src="/images/landing_hero.png" alt="Student" width={600} height={600} className="w-full h-auto" />
               <div className="absolute bottom-6 left-6 glassmorphism bg-white/80 backdrop-blur-md px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/40 shadow-xl">
