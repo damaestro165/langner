@@ -4,7 +4,7 @@ import { Call, CallRecording } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
 import React, { use, useLayoutEffect, useState } from 'react'
 import CallCard from './CallCard';
-import { Play } from 'lucide-react';
+import { Play, Plus } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 

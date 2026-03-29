@@ -1,5 +1,8 @@
 import CallList from '@/components/CallList'
 import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import Icon from '@/components/DynamicIcon'
 
 const Previous = () => {
   return (

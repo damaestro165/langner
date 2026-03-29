@@ -147,7 +147,7 @@ const MeetingTypeList = () => {
           </MeetingModal>
     ) : (
       <MeetingModal
-      isOpen={meetingState ==='isScheduleMeeting'}
+      isOpen={meetingState === 'isScheduleMeeting'}
       onClose={() => setMeetingState(undefined)}
       title="Meeting Created"
       className="text-center"

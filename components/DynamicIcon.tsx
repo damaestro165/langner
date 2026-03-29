@@ -6,16 +6,17 @@ type IconProps = {
   name: keyof typeof Icons;
   color?: string;
   size?: number;
+  className?: string;
 };
 
-const Icon = ({ name, color, size }: IconProps) => {
+const Icon = ({ name, color, size, className }: IconProps) => {
   const LucideIconComponent = Icons[name] as LucideIcon | undefined;
 
   if (!LucideIconComponent) {
     return null;
   }
 
-  return <LucideIconComponent color={color} size={size} />;
+  return <LucideIconComponent color={color} size={size} className={className} />;
 };
 
 export default Icon;
