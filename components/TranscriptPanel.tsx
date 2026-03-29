@@ -243,7 +243,7 @@ const TranscriptPanel = () => {
     return (
       <Button 
         onClick={() => setShowTranscript(true)}
-        className="fixed right-4 bottom-28 rounded-full p-3 bg-green-700 hover:bg-green-600 text-white shadow-md transition-colors z-[100]"
+        className="fixed left-4 top-20 rounded-full p-6 bg-red-600 hover:bg-red-500 text-white shadow-2xl transition-all z-[9999] animate-bounce"
         title="Show Transcript"
       >
         <MessageSquare size={20} />
