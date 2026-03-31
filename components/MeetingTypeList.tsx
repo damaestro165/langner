@@ -62,7 +62,7 @@ const MeetingTypeList = () => {
         router.push(`/meeting/${call.id}`);
       }
 
-      toast({ title: "Meeting Created",})
+      toast({ title: "Meeting Created", variant: "success" })
     } catch(error){
       console.log(error);
       toast({ title: "Failed to Create Meeting",})
@@ -153,7 +153,7 @@ const MeetingTypeList = () => {
       className="text-center"
       handleClick={() => {
         navigator.clipboard.writeText(meetingLink);
-        toast({ title: "Meeting Link Copied to Clipboard",})
+        toast({ title: "Meeting Link Copied to Clipboard", variant: "success" })
       }}
       buttonText="Copy Meeting Link"
       />

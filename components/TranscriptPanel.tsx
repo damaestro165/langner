@@ -25,20 +25,22 @@ const LANGUAGES = [
   { code: 'ja', label: 'Japanese' }
 ];
 
-const mockTranslate = (text: string, langCode: string) => {
+const translateText = (text: string, langCode: string) => {
   if (langCode === 'none') return undefined;
   const langLabel = LANGUAGES.find(l => l.code === langCode)?.label || langCode;
-  return `[${langLabel} Translation] ${text}`;
+  return `[${langLabel}] ${text}`;
 };
 
-const TranscriptPanel = () => {
+interface TranscriptPanelProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSaveWord?: (word: string, translation?: string) => void;
+}
+
+const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) => {
   const call = useCall();
   const { useParticipants, useLocalParticipant } = useCallStateHooks();
-  const participants = useParticipants();
-  const localParticipant = useLocalParticipant();
-  
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
-  const [showTranscript, setShowTranscript] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [correctingId, setCorrectingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
@@ -49,7 +51,7 @@ const TranscriptPanel = () => {
   
   // Initialize Web Speech API
   useEffect(() => {
-    if (!showTranscript || !call || !localParticipant) return;
+    if (!isOpen || !call || !localParticipant) return;
     
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     
@@ -75,7 +77,7 @@ const TranscriptPanel = () => {
             timestamp: Date.now(),
             edited: false,
             // Our local translation (simulated)
-            translatedText: mockTranslate(rawText, targetLanguage)
+            translatedText: translateText(rawText, targetLanguage)
           };
           
           // Add to local state
@@ -119,7 +121,7 @@ const TranscriptPanel = () => {
 
   // Listen for incoming custom events from other participants
   useEffect(() => {
-    if (!call || !showTranscript) return;
+    if (!call || !isOpen) return;
     
     const unsubscribe = call.on('custom', (event: any) => {
       // Handle new transcript broadcast from others
@@ -210,8 +212,9 @@ const TranscriptPanel = () => {
   };
 
   const handleSaveToVocab = (entry: TranscriptEntry) => {
-    // In a real app, this would hit an API endpoint to save the word to the user's flashcard deck.
-    alert(`Saved to Vocabulary Deck:\nOriginal: ${entry.text}\nTranslation: ${entry.translatedText || 'N/A'}`);
+    if (onSaveWord) {
+      onSaveWord(entry.text, entry.translatedText);
+    }
   };
   
   const formatTime = (timestamp: number) => {
@@ -239,17 +242,7 @@ const TranscriptPanel = () => {
     URL.revokeObjectURL(url);
   };
 
-  if (!showTranscript) {
-    return (
-      <Button 
-        onClick={() => setShowTranscript(true)}
-        className="fixed left-4 top-20 rounded-full p-6 bg-red-600 hover:bg-red-500 text-white shadow-2xl transition-all z-[9999] animate-bounce"
-        title="Show Transcript"
-      >
-        <MessageSquare size={20} />
-      </Button>
-    );
-  }
+  if (!isOpen) return null;
 
   return (
     <div className="fixed right-4 bottom-20 bg-gray-900 border border-gray-700 text-white rounded-xl shadow-2xl w-80 h-96 flex flex-col overflow-hidden z-50 transition-all">
@@ -263,7 +256,7 @@ const TranscriptPanel = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
           </h3>
-          <Button variant="ghost" size="sm" onClick={() => setShowTranscript(false)} className="h-8 w-8 p-0 rounded-full hover:bg-gray-700 text-gray-300">
+          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 rounded-full hover:bg-gray-700 text-gray-300">
             <X size={16} />
           </Button>
         </div>

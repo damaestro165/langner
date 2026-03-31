@@ -20,7 +20,7 @@ const NavBar = () => {
     <nav className='flex px-8 py-6 justify-between items-center w-full max-w-7xl mx-auto'>
         <div className='flex items-center gap-10'>
           <Link href='/' className='flex items-center gap-2'>
-              <Image src='/icons/logo.svg' alt="ScholarSync" width={32} height={32}/>
+              <Image src='/icons/logo.svg' alt="Langner" width={32} height={32}/>
               <span className="font-bold text-xl text-gray-900">Langner</span>
           </Link>
           

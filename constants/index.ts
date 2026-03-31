@@ -13,7 +13,7 @@ export const sidebarLinks: SidebarLink[] = [
     icon: 'Home' // Verify exact icon name matches Icons keys
   },
   {
-    label: 'Upcoming',
+    label: 'Next Lessons',
     route: '/upcoming',
     icon: 'Airplay'
   },

@@ -157,7 +157,7 @@ const Home = () => {
          <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex flex-col gap-2">
                <div className="flex items-center gap-2">
-                  <Image src='/icons/logo.svg' alt="ScholarSync" width={24} height={24}/>
+                  <Image src='/icons/logo.svg' alt="Langner" width={24} height={24}/>
                   <span className="font-extrabold text-xl text-gray-900">Langner</span>
                </div>
                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">© 2024 Langner. The Modern Scholar&apos;s Choice.</p>

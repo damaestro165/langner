@@ -9,16 +9,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LayoutList, Users } from 'lucide-react'
+import { LayoutList, Users, MessageSquare, BarChart3, FileText, Calendar as CalendarIcon, Bookmark } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import EndCallButton from './EndCallButton'
 import Loader from './Loader'
 import TranscriptPanel from './TranscriptPanel'
-import InteractiveWhiteboard from './InteractiveWhiteboard'
-import MeetingPolls from './MeetingPolls'
 import SharedMaterials from './SharedMaterials'
 import CalendarIntegration from './CalendarIntegration'
+import VocabularyTracker, { VocabWord } from './VocabularyTracker'
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 
@@ -31,6 +30,10 @@ const MeetingRoom = () => {
   const [joinError, setJoinError] = useState<string | null>(null);
   const [isJoining, setIsJoining] = useState(true);
   const [loadingMessage, setLoadingMessage] = useState('Initializing meeting...');
+  
+  // Tool states
+  const [activeTab, setActiveTab] = useState<'transcript' | 'polls' | 'materials' | 'calendar' | 'vocab' | null>(null);
+  const [vocabWords, setVocabWords] = useState<VocabWord[]>([]);
   
   const call = useCall();
   const callingState = call?.state?.callingState;
@@ -104,6 +107,21 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition="right"/>
     }
   }
+
+  const toggleTab = (tab: typeof activeTab) => {
+    setActiveTab(prev => prev === tab ? null : tab);
+  };
+
+  const addVocabWord = (word: string, translation?: string) => {
+    const newWord: VocabWord = {
+      id: Date.now().toString(),
+      word,
+      translation,
+      timestamp: Date.now()
+    };
+    setVocabWords(prev => [...prev, newWord]);
+    setActiveTab('vocab'); // Auto-switch to vocab to show feedback
+  };
  
   return (
     <section className='relative h-screen w-full overflow-hidden pt-4 text-white bg-gray-900'>
@@ -116,11 +134,30 @@ const MeetingRoom = () => {
         </div>
       </div>
       
-      <TranscriptPanel />
-      <InteractiveWhiteboard />
-      <MeetingPolls />
-      <SharedMaterials />
-      <CalendarIntegration />
+      <TranscriptPanel 
+        isOpen={activeTab === 'transcript'} 
+        onClose={() => setActiveTab(null)} 
+        onSaveWord={addVocabWord}
+      />
+      <MeetingPolls 
+        isOpen={activeTab === 'polls'} 
+        onClose={() => setActiveTab(null)} 
+      />
+      <SharedMaterials 
+        isOpen={activeTab === 'materials'} 
+        onClose={() => setActiveTab(null)} 
+      />
+      <CalendarIntegration 
+        isOpen={activeTab === 'calendar'} 
+        onClose={() => setActiveTab(null)} 
+      />
+      <VocabularyTracker 
+        isOpen={activeTab === 'vocab'} 
+        onClose={() => setActiveTab(null)} 
+        words={vocabWords}
+        onRemoveWord={(id) => setVocabWords(prev => prev.filter(w => w.id !== id))}
+        onClearAll={() => setVocabWords([])}
+      />
       
       <div className='fixed bottom-0 flex w-full mt-5 items-center justify-center gap-5'>
         <CallControls onLeave={() => router.push(`/dashboard`)} />
@@ -147,9 +184,52 @@ const MeetingRoom = () => {
           </DropdownMenuContent>
         </DropdownMenu>
         <CallStatsButton/>
+
+        <div className="flex items-center gap-2 ml-2 border-l border-gray-700 pl-4">
+          <button 
+            onClick={() => toggleTab('transcript')}
+            className={cn("p-2 rounded-2xl transition-all", activeTab === 'transcript' ? 'bg-red-600 text-white' : 'bg-[#4c535b] text-gray-300 hover:text-white')}
+            title="Transcript"
+          >
+            <MessageSquare size={20} />
+          </button>
+          
+          <button 
+            onClick={() => toggleTab('polls')}
+            className={cn("p-2 rounded-2xl transition-all", activeTab === 'polls' ? 'bg-blue-600 text-white' : 'bg-[#4c535b] text-gray-300 hover:text-white')}
+            title="Quizzes"
+          >
+            <BarChart3 size={20} />
+          </button>
+
+          <button 
+            onClick={() => toggleTab('materials')}
+            className={cn("p-2 rounded-2xl transition-all", activeTab === 'materials' ? 'bg-blue-600 text-white' : 'bg-[#4c535b] text-gray-300 hover:text-white')}
+            title="Materials"
+          >
+            <FileText size={20} />
+          </button>
+
+          <button 
+            onClick={() => toggleTab('calendar')}
+            className={cn("p-2 rounded-2xl transition-all", activeTab === 'calendar' ? 'bg-purple-600 text-white' : 'bg-[#4c535b] text-gray-300 hover:text-white')}
+            title="Calendar"
+          >
+            <CalendarIcon size={20} />
+          </button>
+
+          <button 
+            onClick={() => toggleTab('vocab')}
+            className={cn("p-2 rounded-2xl transition-all", activeTab === 'vocab' ? 'bg-emerald-600 text-white' : 'bg-[#4c535b] text-gray-300 hover:text-white')}
+            title="Vocabulary"
+          >
+            <Bookmark size={20} />
+          </button>
+        </div>
+
         <button onClick={() => setShowParticipants((prev) => !prev)}>
-           <div className="cursor-pointer rounded-2xl bg-[#4c535b] p-2">
-            <Users size={20} className="text-white" />
+           <div className={cn("p-2 rounded-2xl transition-all", showParticipants ? 'bg-emerald-600 text-white' : 'bg-[#4c535b] text-gray-300 hover:text-white')}>
+            <Users size={20} />
            </div>
         </button>
         {!isPersonalRoom && <EndCallButton/>}

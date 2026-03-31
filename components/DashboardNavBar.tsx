@@ -30,8 +30,8 @@ const DashboardNavBar = () => {
           <div className="hidden lg:flex items-center gap-8">
             <Link href="/dashboard" className="text-emerald-600 font-semibold border-b-2 border-emerald-600 pb-1 translate-y-[1px]">Dashboard</Link>
             <Link href="/previous" className="text-gray-500 hover:text-gray-900 font-medium pb-1">Lessons</Link>
-            <Link href="#" className="text-gray-500 hover:text-gray-900 font-medium pb-1">Library</Link>
-            <Link href="#" className="text-gray-500 hover:text-gray-900 font-medium pb-1">Community</Link>
+            <Link href="/recordings" className="text-gray-500 hover:text-gray-900 font-medium pb-1">Library</Link>
+            <Link href="/personal-room" className="text-gray-500 hover:text-gray-900 font-medium pb-1">Community</Link>
           </div>
 
           <div className="relative group min-w-[300px]">
@@ -71,8 +71,8 @@ const DashboardNavBar = () => {
     
     <nav className='flex md:hidden p-4 bg-white border-b border-gray-100 w-full justify-between items-center fixed top-0 left-0 z-50'>
       <div className="flex items-center gap-2">
-        <Image src='/icons/logo.svg' alt="ScholarSync" width={28} height={28}/>
-        <span className="font-bold text-lg text-emerald-600">ScholarSync</span>
+        <Image src='/icons/logo.svg' alt="Langner" width={28} height={28}/>
+        <span className="font-bold text-lg text-emerald-600">Langner</span>
       </div>
       <Sheet>
         <SheetTrigger className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
@@ -81,8 +81,8 @@ const DashboardNavBar = () => {
         <SheetContent side="left" className="w-72 p-0 border-none">
             <div className="p-8 border-b border-gray-50">
                <div className="flex items-center gap-2">
-                  <Image src='/icons/logo.svg' alt="ScholarSync" width={28} height={28}/>
-                  <span className="font-bold text-lg text-emerald-600">ScholarSync</span>
+                  <Image src='/icons/logo.svg' alt="Langner" width={28} height={28}/>
+                  <span className="font-bold text-lg text-emerald-600">Langner</span>
                </div>
             </div>
             <div className="flex flex-col p-4 gap-1">

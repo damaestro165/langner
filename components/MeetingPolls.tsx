@@ -20,12 +20,16 @@ type Poll = {
   authorId: string;
 };
 
-const MeetingPolls = () => {
+interface MeetingPollsProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const MeetingPolls = ({ isOpen, onClose }: MeetingPollsProps) => {
   const call = useCall();
   const { useLocalParticipant } = useCallStateHooks();
   const localParticipant = useLocalParticipant();
   
-  const [isOpen, setIsOpen] = useState(false);
   const [activePoll, setActivePoll] = useState<Poll | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   
@@ -154,29 +158,19 @@ const MeetingPolls = () => {
   const totalVotes = activePoll ? activePoll.options.reduce((sum, opt) => sum + opt.votes, 0) : 0;
   const isHost = activePoll?.authorId === localParticipant?.userId;
 
-  if (!isOpen) {
-    return (
-      <Button 
-        onClick={() => setIsOpen(true)}
-        className="fixed right-[140px] bottom-28 rounded-full p-3 bg-blue-700 hover:bg-blue-600 text-white shadow-md transition-colors z-[100]"
-        title="Open Polls"
-      >
-        <BarChart3 size={20} />
-      </Button>
-    );
-  }
+  if (!isOpen) return null;
 
   return (
     <div className="fixed right-4 bottom-36 bg-gray-900 border border-gray-700 text-white rounded-xl shadow-2xl w-80 max-h-[500px] flex flex-col overflow-hidden z-50 transition-all">
       <div className="flex justify-between items-center p-3 border-b border-gray-700 bg-gray-800">
         <h3 className="font-medium flex items-center gap-2">
           <BarChart3 size={16} className="text-blue-500" />
-          Live Polls
+          Lesson Quizzes
           {activePoll?.isActive && (
             <span className="bg-red-500 text-white text-[10px] uppercase px-1.5 py-0.5 rounded animate-pulse font-bold ml-1">Live</span>
           )}
         </h3>
-        <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} className="h-8 w-8 p-0 rounded-full hover:bg-gray-700 text-gray-300">
+        <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 rounded-full hover:bg-gray-700 text-gray-300">
           <X size={16} />
         </Button>
       </div>

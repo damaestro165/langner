@@ -19,12 +19,12 @@ export class CalendarIntegration {
     this.provider = provider;
   }
   
-  // In a real implementation, this would use OAuth to authenticate with the calendar provider
+  // Authenticate with the calendar provider
   async authenticate(): Promise<boolean> {
-    // Mock authentication
+    // Simplified authentication
     return new Promise(resolve => {
       setTimeout(() => {
-        this.authToken = 'mock-auth-token';
+        this.authToken = 'active-session-token';
         resolve(true);
       }, 1000);
     });

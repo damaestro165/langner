@@ -28,8 +28,12 @@ type Meeting = {
   participants: string[];
 };
 
-const CalendarIntegration = () => {
-  const [showCalendar, setShowCalendar] = useState(false);
+interface CalendarIntegrationProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const CalendarIntegration = ({ isOpen, onClose }: CalendarIntegrationProps) => {
   const [meetings, setMeetings] = useState<Meeting[]>([
     {
       id: '1',
@@ -122,15 +126,9 @@ const CalendarIntegration = () => {
 
   return (
     <>
-      <Button
-        onClick={() => setShowCalendar(true)}
-        className="fixed right-4 bottom-44 rounded-full p-3 bg-purple-600 text-white"
-        title="Calendar"
-      >
-        <Calendar size={20} />
-      </Button>
+  if (!isOpen) return null;
       
-      <Dialog open={showCalendar} onOpenChange={setShowCalendar}>
+      <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>Meeting Schedule</DialogTitle>

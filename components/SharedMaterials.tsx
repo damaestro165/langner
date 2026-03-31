@@ -19,9 +19,13 @@ type Material = {
   uploadedBy: string;
 };
 
-const SharedMaterials = () => {
+interface SharedMaterialsProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const SharedMaterials = ({ isOpen, onClose }: SharedMaterialsProps) => {
   const [materials, setMaterials] = useState<Material[]>([]);
-  const [showSharing, setShowSharing] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   
@@ -63,15 +67,9 @@ const SharedMaterials = () => {
 
   return (
     <>
-      <Button 
-        onClick={() => setShowSharing(true)}
-        className="fixed right-4 bottom-40 rounded-full p-3 bg-blue-600 text-white z-[100]"
-        title="Share Materials"
-      >
-        <FileText size={20} />
-      </Button>
+  if (!isOpen) return null;
       
-      <Dialog open={showSharing} onOpenChange={setShowSharing}>
+      <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <DialogContent className={`${isFullscreen ? 'w-screen h-screen max-w-none' : 'max-w-3xl'}`}>
           <DialogHeader className="flex justify-between items-center">
             <DialogTitle>Shared Learning Materials</DialogTitle>
@@ -79,7 +77,7 @@ const SharedMaterials = () => {
               <Button variant="ghost" size="sm" onClick={toggleFullscreen}>
                 {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => setShowSharing(false)}>
+              <Button variant="ghost" size="sm" onClick={onClose}>
                 <X size={18} />
               </Button>
             </div>
