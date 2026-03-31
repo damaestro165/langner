@@ -48,7 +48,6 @@ const MeetingPolls = ({ isOpen, onClose }: MeetingPollsProps) => {
         const payload = event.custom.data as Poll;
         setActivePoll(payload);
         setHasVoted(false);
-        setIsOpen(true); // Auto-open panel when a poll is created!
       }
       
       // Poll Answered Broadcast (Real-time vote counting)

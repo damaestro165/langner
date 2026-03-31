@@ -40,6 +40,7 @@ interface TranscriptPanelProps {
 const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) => {
   const call = useCall();
   const { useParticipants, useLocalParticipant } = useCallStateHooks();
+  const localParticipant = useLocalParticipant();
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [correctingId, setCorrectingId] = useState<string | null>(null);
@@ -117,7 +118,7 @@ const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) 
         recognitionRef.current = null;
       }
     };
-  }, [showTranscript, call, localParticipant, targetLanguage]);
+  }, [isOpen, call, localParticipant, targetLanguage]);
 
   // Listen for incoming custom events from other participants
   useEffect(() => {
@@ -130,8 +131,8 @@ const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) 
         if (event.user?.id !== localParticipant?.userId) {
           setTranscript(prev => {
             if (prev.some(t => t.id === payload.id)) return prev;
-            // Apply mock translation immediately upon receiving
-            const translatedText = mockTranslate(payload.text, targetLanguage);
+                // Apply translation immediately upon receiving
+                const translatedText = translateText(payload.text, targetLanguage);
             return [...prev, { ...payload, translatedText }];
           });
         }
@@ -142,7 +143,7 @@ const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) 
         const { id, text } = event.custom;
         setTranscript(prev => prev.map(entry => 
           entry.id === id 
-            ? { ...entry, text, edited: true, translatedText: mockTranslate(text, targetLanguage) } 
+            ? { ...entry, text, edited: true, translatedText: translateText(text, targetLanguage) } 
             : entry
         ));
       }
@@ -161,7 +162,7 @@ const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) 
     return () => {
       unsubscribe();
     };
-  }, [call, showTranscript, localParticipant, targetLanguage]);
+  }, [call, isOpen, localParticipant, targetLanguage]);
   
   // Auto-scroll to bottom when new entries are added
   useEffect(() => {
@@ -174,7 +175,7 @@ const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) 
   useEffect(() => {
     setTranscript(prev => prev.map(entry => ({
       ...entry,
-      translatedText: mockTranslate(entry.text, targetLanguage)
+      translatedText: translateText(entry.text, targetLanguage)
     })));
   }, [targetLanguage]);
 
@@ -193,7 +194,7 @@ const TranscriptPanel = ({ isOpen, onClose, onSaveWord }: TranscriptPanelProps) 
     call.sendCustomEvent({ type: 'transcript-edit', id: editingId, text: editText }).catch(console.error);
     setTranscript(prev => prev.map(entry => 
       entry.id === editingId 
-        ? { ...entry, text: editText, edited: true, translatedText: mockTranslate(editText, targetLanguage) } 
+        ? { ...entry, text: editText, edited: true, translatedText: translateText(editText, targetLanguage) } 
         : entry
     ));
     setEditingId(null);

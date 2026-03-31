@@ -70,7 +70,7 @@ const CallList = ({type}: {type: "ended" | "upcoming" | "recordings"}) => {
     };
 
     if (type === "recordings") fetchRecordings();
-  }, [type, callRecordings]);
+  }, [type, callRecordings, toast]);
 
     if(isLoading) return <h1 className='text-center text-lg font-semibold text-gray-500'>Loading...</h1>
 

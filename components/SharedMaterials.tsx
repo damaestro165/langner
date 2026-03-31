@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FileText, FileUp, X, ChevronLeft, ChevronRight, Maximize, Minimize } from 'lucide-react';
+import Image from 'next/image';
 import { 
   Dialog,
   DialogContent,
@@ -99,9 +100,11 @@ const SharedMaterials = ({ isOpen, onClose }: SharedMaterialsProps) => {
                 
                 <div className="flex-1 bg-gray-100 rounded-md overflow-hidden">
                   {selectedMaterial.type === 'image' ? (
-                    <img 
+                    <Image 
                       src={selectedMaterial.url} 
                       alt={selectedMaterial.name}
+                      width={800}
+                      height={600}
                       className="max-w-full max-h-full object-contain mx-auto"
                     />
                   ) : selectedMaterial.type === 'pdf' ? (
